@@ -3,6 +3,8 @@ on: [pull_request, push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      OAUTH_CLIENT_ID: ${{ secrets.OAUTH_CLIENT_ID }}
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -10,16 +12,23 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
+      - name: Create local.properties
+        run: echo OAUTH_CLIENT_ID=\"$OAUTH_CLIENT_ID\" > ./local.properties; echo OAUTH_CLIENT_SECRET=\"$OAUTH_CLIENT_SECRET=\" >> ./local.properties
+
       - name: Build the app
         run: ./gradlew build
 
   unit_tests:
     runs-on: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v2
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
+
+      - name: Create local.properties
+        run: echo OAUTH_CLIENT_ID=\"$OAUTH_CLIENT_ID\" > ./local.properties; echo OAUTH_CLIENT_SECRET=\"$OAUTH_CLIENT_SECRET=\" >> ./local.properties
 
       - name: Unit tests
         run: ./gradlew test
