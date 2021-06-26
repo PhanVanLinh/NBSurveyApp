@@ -30,6 +30,27 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    flavorDimensions "default"
+    productFlavors {
+        develop {
+            versionNameSuffix = "dev"
+            applicationIdSuffix = ".dev"
+            manifestPlaceholders = [applicationName: "survey-DEV"]
+        }
+
+        production {
+            manifestPlaceholders = [applicationName: "@string/app_name"]
+        }
+    }
+
+    applicationVariants.all { variant ->
+        def BASE_URL = "https://survey-api.nimblehq.co/"
+        if (variant.getName().contains("staging"))  {
+            BASE_URL = "https://nimble-survey-web-staging.herokuapp.com/"
+        }
+        variant.buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
+    }
 }
 
 dependencies {
