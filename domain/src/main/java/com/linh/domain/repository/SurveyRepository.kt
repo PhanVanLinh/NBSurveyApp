@@ -3,7 +3,7 @@ package com.linh.domain.repository
 import com.linh.domain.base.Result
 import com.linh.domain.model.Survey
 
-internal interface SurveyRepository {
+interface SurveyRepository {
 
     suspend fun getList(
         pageNumber: Int,
