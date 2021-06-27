@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.linh.androidnbsurveyapp.common.KEY_SURVEY_ID
 import com.linh.androidnbsurveyapp.common.showErrorDialog
 import com.linh.androidnbsurveyapp.databinding.ActivityHomeBinding
@@ -15,6 +17,7 @@ import com.linh.androidnbsurveyapp.ui.feature.home.adapter.SurveyAdapter
 import com.linh.androidnbsurveyapp.ui.feature.surveydetail.SurveyDetailActivity
 import com.linh.androidnbsurveyapp.ui.model.SurveyModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -48,6 +51,10 @@ class HomeActivity : AppCompatActivity() {
         binding.recyclerSurveys.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerSurveys.adapter = surveyAdapter
+
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.recyclerSurveys)
+
     }
 
     private fun initEvents() {
