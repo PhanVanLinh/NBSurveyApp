@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="textPrimaryColor" format="reference|color" />
+    <attr name="textPrimaryPressed" format="reference|color" />
+
+    <attr name="textSecondaryColor" format="reference|color" />
+    <attr name="textSecondaryColorPressed" format="reference|color" />
+    <attr name="textSecondaryColorDisable" format="reference|color" />
+</resources>
