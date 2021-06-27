@@ -45,7 +45,6 @@ class SurveyAdapter(private val itemClickListener: (Int) -> Unit) :
                 .with(itemView.context)
                 .load(surveyModel.highQualityCoverImage())
                 .centerCrop()
-                .placeholder(R.drawable.ic_launcher_background)
                 .into(imageCover)
             textDescription.text = surveyModel.description
         }

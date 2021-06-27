@@ -24,4 +24,8 @@ class DefaultAuthRepository @Inject constructor(
     override suspend fun logout(): Result<Boolean> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun isLoggedIn(): Result<Boolean> {
+        return authLocalDataSource.isLoggedIn()
+    }
 }

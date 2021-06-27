@@ -5,11 +5,10 @@ import com.linh.domain.repository.AuthRepository
 
 class CheckAuthStatusUseCase(
     private val authRepository: AuthRepository
-) : UseCase<CheckAuthStatusUseCase.Input, Unit>() {
+) : UseCase<CheckAuthStatusUseCase.Input, Boolean>() {
 
-    override suspend fun invoke(input: Input): Result<Unit> {
-        // todo
-        return Result.Success(Unit)
+    override suspend fun invoke(input: Input): Result<Boolean> {
+        return authRepository.isLoggedIn()
     }
 
     object Input : UseCase.Input()

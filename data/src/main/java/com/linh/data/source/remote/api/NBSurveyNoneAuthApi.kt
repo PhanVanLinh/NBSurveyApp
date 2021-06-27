@@ -10,4 +10,9 @@ interface NBSurveyNoneAuthApi {
     @Headers("Content-Type: application/json")
     @POST("api/v1/oauth/token")
     suspend fun login(@Body body: String): AccessTokenData
+
+
+    @Headers("Content-Type: application/json")
+    @POST("api/v1/oauth/token")
+    suspend fun refreshToken(@Body body: String): AccessTokenData
 }
