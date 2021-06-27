@@ -7,8 +7,9 @@ import com.linh.data.source.local.api.PreferencesKeys.ACCESS_TOKEN
 import com.linh.data.source.remote.model.AccessTokenData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class AccessTokenWrapper(val dataStore: DataStore<Preferences>) {
+class AccessTokenWrapper @Inject constructor(val dataStore: DataStore<Preferences>) {
 
     suspend fun saveAccessToken(accessToken: AccessTokenData) {
         dataStore.edit { settings ->
