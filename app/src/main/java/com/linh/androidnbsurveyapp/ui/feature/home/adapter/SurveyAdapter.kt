@@ -43,7 +43,7 @@ class SurveyAdapter(private val itemClickListener: (Int) -> Unit) :
             textTitle.text = surveyModel.title
             Glide
                 .with(itemView.context)
-                .load(surveyModel.coverImage ?: "")
+                .load(surveyModel.highQualityCoverImage())
                 .centerCrop()
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(imageCover)

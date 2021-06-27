@@ -17,6 +17,8 @@
     <string name="error_password_is_required">Password is required</string>
     <string name="error_invalid_password_length">Password must be >4 characters</string>
     <string name="error_invalid_email_or_password">Invalid email or password</string>
-
     <string name="login_failed">"Login failed"</string>
+
+    <!-- Home screen -->
+    <string name="error_failed_to_fetch_survey_data">Something went wrong</string>
 </resources>

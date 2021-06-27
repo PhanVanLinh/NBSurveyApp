@@ -7,7 +7,8 @@ interface SurveyRepository {
 
     suspend fun getList(
         pageNumber: Int,
-        pageSize: Int
+        pageSize: Int,
+        isCacheDirty: Boolean
     ): Result<List<Survey>>
 
     suspend fun getDetail(

@@ -2,7 +2,7 @@ package com.linh.data.source.remote
 
 import com.linh.data.BuildConfig
 import com.linh.data.di.qualifier.IODispatcher
-import com.linh.data.source.mapper.AccessTokenMapper
+import com.linh.data.source.mapper.AccessTokenDataMapper
 import com.linh.data.source.remote.api.NBSurveyNoneAuthApi
 import com.linh.data.source.remote.request.LoginRequest
 import com.linh.domain.base.Result
@@ -17,7 +17,7 @@ class DefaultAuthRemoteDataSource @Inject constructor(
     private val nbSurveyNoneAuthApi: NBSurveyNoneAuthApi,
     @IODispatcher
     private val dispatcher: CoroutineDispatcher,
-    private val accessTokenMapper: AccessTokenMapper
+    private val accessTokenDataMapper: AccessTokenDataMapper
 ) : BaseRemoteDataSource(), AuthRemoteDataSource {
 
     override suspend fun login(email: String, password: String): Result<AccessToken> {
@@ -32,7 +32,7 @@ class DefaultAuthRemoteDataSource @Inject constructor(
             Moshi.Builder().build().adapter(LoginRequest::class.java).toJson(loginRequest)
         return withContext(dispatcher) {
             getResult {
-                accessTokenMapper.accessTokenDataToAccessToken(
+                accessTokenDataMapper.accessTokenDataToAccessToken(
                     nbSurveyNoneAuthApi.login(
                         loginRequestJson
                     )
