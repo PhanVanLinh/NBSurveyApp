@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class SurveyEntity(
     @PrimaryKey var id: String,
     val title: String,
-    val description: String
+    val description: String,
+    val coverImage: String
 )

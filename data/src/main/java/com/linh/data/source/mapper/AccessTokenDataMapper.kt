@@ -4,7 +4,7 @@ import com.linh.data.source.remote.model.AccessTokenData
 import com.linh.domain.model.AccessToken
 import javax.inject.Inject
 
-class AccessTokenMapper @Inject constructor() {
+class AccessTokenDataMapper @Inject constructor() {
 
     fun accessTokenToAccessTokenData(f: AccessToken): AccessTokenData {
         return AccessTokenData().apply {
