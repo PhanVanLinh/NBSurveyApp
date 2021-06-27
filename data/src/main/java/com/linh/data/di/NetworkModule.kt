@@ -6,9 +6,11 @@ import com.linh.data.source.remote.api.NBSurveyNoneAuthApi
 import com.linh.data.source.remote.middleware.AuthInterceptor
 import com.linh.data.source.remote.middleware.NoneAuthInterceptor
 import com.linh.data.source.remote.middleware.TokenAuthenticator
+import com.linh.data.source.remote.model.AccessTokenData
 import com.linh.data.source.remote.model.AnswerData
 import com.linh.data.source.remote.model.QuestionData
 import com.linh.data.source.remote.model.SurveyData
+import com.linh.data.source.remote.request.LoginRequest
 import com.linh.data.source.remote.service.ServiceGenerator
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -29,6 +31,7 @@ object NetworkModule {
             .add(SurveyData::class.java)
             .add(QuestionData::class.java)
             .add(AnswerData::class.java)
+            .add(AccessTokenData::class.java)
             .build()
 
         return Moshi.Builder()

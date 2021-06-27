@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">AndroidNBSurveyApp</string>
+    <string name="error_network">There is no internet connection. Please try again</string>
+    <string name="success">Success</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
 
     <!-- Login -->
     <string name="nimble">nimble</string>
@@ -12,6 +16,7 @@
     <string name="error_invalid_email">Not a valid email</string>
     <string name="error_password_is_required">Password is required</string>
     <string name="error_invalid_password_length">Password must be >4 characters</string>
+    <string name="error_invalid_email_or_password">Invalid email or password</string>
 
     <string name="login_failed">"Login failed"</string>
 </resources>

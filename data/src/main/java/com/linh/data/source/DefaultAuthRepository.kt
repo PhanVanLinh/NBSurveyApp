@@ -11,8 +11,14 @@ class DefaultAuthRepository @Inject constructor(
     private val authRemoteDataSource: AuthRemoteDataSource,
 ) : AuthRepository {
 
-    override suspend fun login(email: String, password: String): Result<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun login(email: String, password: String): Result<Unit> {
+        val loginResult = authRemoteDataSource.login(email, password)
+        return if (loginResult is Result.Success) {
+            authLocalDataSource.saveAccessToken(loginResult.data)
+            Result.Success(Unit)
+        } else {
+            loginResult.errorMap()
+        }
     }
 
     override suspend fun logout(): Result<Boolean> {

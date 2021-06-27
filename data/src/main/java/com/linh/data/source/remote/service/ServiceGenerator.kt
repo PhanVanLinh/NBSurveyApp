@@ -6,6 +6,7 @@ import okhttp3.Authenticator
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 class ServiceGenerator {
@@ -32,6 +33,7 @@ class ServiceGenerator {
             val okHttpClient = okHttpClientBuilder.build()
 
             val retrofit = Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(JsonApiConverterFactory.create(moshi))
                 .client(okHttpClient)
                 .build()

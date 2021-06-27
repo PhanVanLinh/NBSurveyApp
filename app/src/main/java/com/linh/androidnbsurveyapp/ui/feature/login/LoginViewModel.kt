@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.linh.androidnbsurveyapp.R
 import com.linh.androidnbsurveyapp.common.MAX_PASSWORD_LENGTH
 import com.linh.androidnbsurveyapp.common.MIN_PASSWORD_LENGTH
+import com.linh.data.di.qualifier.MainDispatcher
+import com.linh.domain.base.Result
 import com.linh.domain.interactor.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,15 +20,31 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
+    @MainDispatcher
     private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    @VisibleForTesting
-    val _loginForm = MutableSharedFlow<LoginFormState>()
+    private val _loginForm = MutableSharedFlow<LoginFormState>()
     val loginFormState: SharedFlow<LoginFormState> = _loginForm
 
-    fun login(username: String, password: String) {
-        // TODO
+    private val _loginResult = MutableSharedFlow<LoginResult>()
+    val loginResultState: SharedFlow<LoginResult> = _loginResult
+
+    fun login(email: String, password: String) {
+        viewModelScope.launch {
+            _loginResult.emit(LoginResult(loading = true))
+            when (loginUseCase(LoginUseCase.Input(email, password))) {
+                is Result.Success -> {
+                    _loginResult.emit(LoginResult(success = true))
+                }
+                is Result.NetworkError -> {
+                    _loginResult.emit(LoginResult(error = R.string.error_network))
+                }
+                is Result.UnknownError -> {
+                    _loginResult.emit(LoginResult(error = R.string.error_invalid_email_or_password))
+                }
+            }
+        }
     }
 
     fun loginDataChanged(email: String, password: String) {
