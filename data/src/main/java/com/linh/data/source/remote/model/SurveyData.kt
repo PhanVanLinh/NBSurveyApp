@@ -1,4 +1,8 @@
 package com.linh.data.source.remote.model
 
-class SurveyData {
+import moe.banana.jsonapi2.JsonApi
+import moe.banana.jsonapi2.Resource
+
+@JsonApi(type = "survey")
+class SurveyData : Resource() {
 }

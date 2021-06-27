@@ -1,8 +1,10 @@
 package com.linh.domain.interactor
 
 import com.linh.domain.base.Result
+import com.linh.domain.repository.SurveyRepository
 
-class GetSurveyListUseCase : UseCase<GetSurveyListUseCase.Input, Unit>() {
+class GetSurveyListUseCase(val surveyRepository: SurveyRepository) :
+    UseCase<GetSurveyListUseCase.Input, Unit>() {
 
     override suspend fun invoke(input: Input): Result<Unit> {
         // todo

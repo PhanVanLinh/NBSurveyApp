@@ -1,4 +1,4 @@
-package com.linh.data.source.remote
+package com.linh.data.source.remote.api
 
 import com.linh.data.source.remote.model.SurveyData
 import com.linh.data.source.remote.model.UserData

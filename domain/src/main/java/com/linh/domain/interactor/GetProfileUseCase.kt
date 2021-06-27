@@ -1,11 +1,11 @@
 package com.linh.domain.interactor
 
 import com.linh.domain.base.Result
-import com.linh.domain.repository.AuthRepository
+import com.linh.domain.repository.UserRepository
 
-class CheckAuthStatusUseCase(
-    private val authRepository: AuthRepository
-) : UseCase<CheckAuthStatusUseCase.Input, Unit>() {
+class GetProfileUseCase(
+    val userRepository: UserRepository
+) : UseCase<GetProfileUseCase.Input, Unit>() {
 
     override suspend fun invoke(input: Input): Result<Unit> {
         // todo

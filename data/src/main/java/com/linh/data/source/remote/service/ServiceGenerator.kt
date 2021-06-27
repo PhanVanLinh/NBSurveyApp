@@ -1,5 +1,7 @@
 package com.linh.data.source.remote.service
 
+import com.squareup.moshi.Moshi
+import moe.banana.jsonapi2.JsonApiConverterFactory
 import okhttp3.Authenticator
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -14,7 +16,8 @@ class ServiceGenerator {
 
         fun <T> generate(
             baseUrl: String, serviceClass: Class<T>,
-            authenticator: Authenticator?, interceptors: Array<Interceptor>
+            authenticator: Authenticator?, interceptors: Array<Interceptor>,
+            moshi: Moshi
         ): T {
             val okHttpClientBuilder = OkHttpClient().newBuilder()
 
@@ -29,6 +32,7 @@ class ServiceGenerator {
             val okHttpClient = okHttpClientBuilder.build()
 
             val retrofit = Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(JsonApiConverterFactory.create(moshi))
                 .client(okHttpClient)
                 .build()
             return retrofit.create(serviceClass)

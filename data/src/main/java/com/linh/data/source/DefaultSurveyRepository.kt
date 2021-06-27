@@ -5,10 +5,11 @@ import com.linh.domain.model.Survey
 import com.linh.domain.repository.SurveyRepository
 import com.linh.domain.repository.datasource.local.SurveyLocalDataSource
 import com.linh.domain.repository.datasource.remote.SurveyRemoteDataSource
+import javax.inject.Inject
 
-class DefaultSurveyRepository(
-    val surveyLocalDataSource: SurveyLocalDataSource,
-    val surveyRemoteDataSource: SurveyRemoteDataSource,
+class DefaultSurveyRepository @Inject constructor(
+    private val surveyLocalDataSource: SurveyLocalDataSource,
+    private val surveyRemoteDataSource: SurveyRemoteDataSource,
 ) : SurveyRepository {
 
     override suspend fun getList(pageNumber: Int, pageSize: Int): Result<List<Survey>> {
