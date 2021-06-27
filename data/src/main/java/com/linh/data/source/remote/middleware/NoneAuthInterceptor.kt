@@ -7,6 +7,9 @@ import javax.inject.Inject
 class NoneAuthInterceptor @Inject constructor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        return chain.proceed(chain.request())
+        val originalRequest = chain.request()
+        val authorisedRequestBuilder = originalRequest.newBuilder()
+            .header("Accept", "application/json")
+        return chain.proceed(authorisedRequestBuilder.build())
     }
 }
