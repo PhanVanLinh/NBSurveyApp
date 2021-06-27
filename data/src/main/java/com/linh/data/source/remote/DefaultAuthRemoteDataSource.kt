@@ -4,7 +4,9 @@ import com.linh.data.BuildConfig
 import com.linh.data.di.qualifier.IODispatcher
 import com.linh.data.source.mapper.AccessTokenDataMapper
 import com.linh.data.source.remote.api.NBSurveyNoneAuthApi
+import com.linh.data.source.remote.model.GrantType
 import com.linh.data.source.remote.request.LoginRequest
+import com.linh.data.source.remote.request.RefreshTokenRequest
 import com.linh.domain.base.Result
 import com.linh.domain.model.AccessToken
 import com.linh.domain.repository.datasource.remote.AuthRemoteDataSource
@@ -22,7 +24,7 @@ class DefaultAuthRemoteDataSource @Inject constructor(
 
     override suspend fun login(email: String, password: String): Result<AccessToken> {
         val loginRequest = LoginRequest(
-            grantType = BuildConfig.GRANT_TYPE,
+            grantType = GrantType.PASSWORD.value,
             email = email,
             password = password,
             clientId = BuildConfig.OAUTH_CLIENT_ID,
@@ -35,6 +37,26 @@ class DefaultAuthRemoteDataSource @Inject constructor(
                 accessTokenDataMapper.accessTokenDataToAccessToken(
                     nbSurveyNoneAuthApi.login(
                         loginRequestJson
+                    )
+                )
+            }
+        }
+    }
+
+    override suspend fun refreshToken(refreshToken:String): Result<AccessToken> {
+        val refreshTokenRequest = RefreshTokenRequest(
+            grantType = GrantType.REFRESH_TOKEN.value,
+            refreshToken = refreshToken,
+            clientId = BuildConfig.OAUTH_CLIENT_ID,
+            clientSecret = BuildConfig.OAUTH_CLIENT_SECRET,
+        )
+        val refreshTokenRequestJson =
+            Moshi.Builder().build().adapter(RefreshTokenRequest::class.java).toJson(refreshTokenRequest)
+        return withContext(dispatcher) {
+            getResult {
+                accessTokenDataMapper.accessTokenDataToAccessToken(
+                    nbSurveyNoneAuthApi.refreshToken(
+                        refreshTokenRequestJson
                     )
                 )
             }
