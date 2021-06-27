@@ -27,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(view)
 
         initRecyclerView()
+        initEvents()
         observeViewModel()
 
         homeViewModel.getSurveyList(true)
@@ -46,14 +47,23 @@ class HomeActivity : AppCompatActivity() {
         binding.recyclerSurveys.adapter = surveyAdapter
     }
 
+    private fun initEvents() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            homeViewModel.getSurveyList(true)
+        }
+    }
+
     private fun observeViewModel() {
         homeViewModel.surveyListUiState.asLiveData().observe(this, Observer {
             val result = it ?: return@Observer
 
             if (result.loading == true) {
-                binding.progressLoading.visibility = View.VISIBLE
+                if (!binding.swipeRefreshLayout.isRefreshing) {
+                    binding.progressLoading.visibility = View.VISIBLE
+                }
             } else {
                 binding.progressLoading.visibility = View.GONE
+                binding.swipeRefreshLayout.isRefreshing = false
             }
 
             if (result.error != null) {
