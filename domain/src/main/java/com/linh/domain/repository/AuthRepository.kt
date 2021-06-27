@@ -2,7 +2,7 @@ package com.linh.domain.repository
 
 import com.linh.domain.base.Result
 
-internal interface AuthRepository {
+interface AuthRepository {
 
     suspend fun login(email: String, password: String): Result<Boolean>
 
