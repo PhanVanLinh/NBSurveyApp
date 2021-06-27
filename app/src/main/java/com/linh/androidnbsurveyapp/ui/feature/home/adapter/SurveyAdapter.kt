@@ -40,6 +40,7 @@ class SurveyAdapter(private val itemClickListener: (Int) -> Unit) :
         }
 
         fun bind(surveyModel: SurveyModel) {
+            imageCover.setImageDrawable(null)
             textTitle.text = surveyModel.title
             Glide
                 .with(itemView.context)
