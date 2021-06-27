@@ -1,5 +1,6 @@
 package com.linh.androidnbsurveyapp.ui.feature.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -7,9 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.linh.androidnbsurveyapp.common.KEY_SURVEY_ID
 import com.linh.androidnbsurveyapp.common.showErrorDialog
 import com.linh.androidnbsurveyapp.databinding.ActivityHomeBinding
 import com.linh.androidnbsurveyapp.ui.feature.home.adapter.SurveyAdapter
+import com.linh.androidnbsurveyapp.ui.feature.surveydetail.SurveyDetailActivity
 import com.linh.androidnbsurveyapp.ui.model.SurveyModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,6 +53,16 @@ class HomeActivity : AppCompatActivity() {
     private fun initEvents() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             homeViewModel.getSurveyList(true)
+        }
+
+        binding.startSurvey.setOnClickListener {
+            val firstVisibleItem =
+                (binding.recyclerSurveys.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            val currentSurvey = surveyAdapter.currentList[firstVisibleItem]
+
+            val intent = Intent(this@HomeActivity, SurveyDetailActivity::class.java)
+            intent.putExtra(KEY_SURVEY_ID, currentSurvey.id)
+            startActivity(intent)
         }
     }
 
