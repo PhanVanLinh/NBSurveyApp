@@ -18,15 +18,11 @@ import kotlinx.coroutines.Dispatchers
 object LocalModule {
 
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(
+    fun provideSurveyDao(@ApplicationContext context: Context): SurveyDao {
+        val db = Room.databaseBuilder(
             context,
             AppDatabase::class.java, "nb-survey-db"
         ).build()
-    }
-
-    @Provides
-    fun provideSurveyDao(db: AppDatabase): SurveyDao {
         return db.surveyDao()
     }
 
